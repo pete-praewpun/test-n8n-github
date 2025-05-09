@@ -1,0 +1,1 @@
+CREATE temp_table if not exists;
