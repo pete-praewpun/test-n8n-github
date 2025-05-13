@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: monthly_customer_retention
+    description: "Calculates monthly customer retention rates by identifying customers who made purchases in consecutive months."
+    columns:
+      - name: current_month
+        description: "The month being analyzed for customer retention."
+        data_type: date
+      - name: total_customers
+        description: "Total number of unique customers who made purchases during the month."
+        data_type: string
+      - name: retained_customers
+        description: "Number of customers who made purchases in the current month and the previous month."
+        data_type: integer
+      - name: retention_rate
+        description: "The percentage of customers retained from the previous month."
+        data_type: numeric
+    tests:
+      - unique:
+          column_name: current_month
+      - not_null:
+          column_name: retention_rate
+
+sources:
+  - name: raw_orders
+    description: "The raw orders table containing customer transactions."
+    tables:
+      - name: raw_orders
+        description: "Raw data for all customer orders."
+        columns:
+          - name: customer_id
+            description: "Unique identifier for each customer."
+            data_type: integer
+          - name: order_date
+            description: "The date when the order was placed."
+            data_type: timestamp
+          - name: order_id
+            description: "Unique identifier for each order."
+            data_type: integer
